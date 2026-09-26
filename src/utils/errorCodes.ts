@@ -56,6 +56,12 @@ export const ErrorCode = {
    */
   UNSUPPORTED_MEDIA_TYPE: 'UNSUPPORTED_MEDIA_TYPE',
 
+  /**
+   * HTTP 503 — The request exceeded REQUEST_TIMEOUT_MS and was aborted by the timeout middleware.
+   * Client should: Retry with exponential backoff, reusing the same Idempotency-Key for mutating requests.
+   */
+  REQUEST_TIMEOUT: 'REQUEST_TIMEOUT',
+
   // ── Auth ──────────────────────────────────────────────────────────────────
   /**
    * HTTP 401 — Request lacks valid authentication (missing/invalid JWT or API key).
@@ -209,25 +215,9 @@ export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
  * |  1   | AlreadyInitialized| CONFLICT             |
  * |  2   | NotInitialized    | INTERNAL_SERVER_ERROR|
  * |  3   | PlayerNotFound    | PLAYER_NOT_FOUND     |
- * |  4   | NotFound          | NOT_FOUND            |
- * |  5   | InvalidInput      | VALIDATION_ERROR     |
- * |  6   | AlreadyVerified   | CONFLICT             |
- * |  7   | InsufficientFee   | INSUFFICIENT_FUNDS   |
- * |  8   | NotSubscribed     | NOT_SUBSCRIBED       |
- * |  9   | Unauthorized      | UNAUTHORIZED         |
- * | 10   | ContractPaused    | CONTRACT_PAUSED      |
- * | 11   | Overflow          | INTERNAL_SERVER_ERROR|
  */
-export const SOROBAN_ERROR_CODE_MAP: Record<number, ErrorCode> = {
-  1:  ErrorCode.CONFLICT,
-  2:  ErrorCode.INTERNAL_SERVER_ERROR,
-  3:  ErrorCode.PLAYER_NOT_FOUND,
-  4:  ErrorCode.NOT_FOUND,
-  5:  ErrorCode.VALIDATION_ERROR,
-  6:  ErrorCode.CONFLICT,
-  7:  ErrorCode.INSUFFICIENT_FUNDS,
-  8:  ErrorCode.NOT_SUBSCRIBED,
-  9:  ErrorCode.UNAUTHORIZED,
-  10: ErrorCode.CONTRACT_PAUSED,
-  11: ErrorCode.INTERNAL_SERVER_ERROR,
-} as const;
+export const CONTRACT_ERROR_CODE_MAP: Record<number, ErrorCode> = {
+  1: ErrorCode.CONFLICT,
+  2: ErrorCode.INTERNAL_SERVER_ERROR,
+  3: ErrorCode.PLAYER_NOT_FOUND,
+};

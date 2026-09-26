@@ -45,8 +45,13 @@ export const ErrorCode = {
   MALFORMED_JSON: 'MALFORMED_JSON',
 
   /**
-   * HTTP 413 — Request body size exceeds the server limit (~100KB).
+   * HTTP 413 — Request body size exceeds the configured server limit.
+   * Limits are configurable via env vars (see src/config.ts `bodyLimit`):
+   *   - JSON_PAYLOAD_LIMIT (default 1 MB) — general JSON request bodies
+   *   - UPLOAD_PAYLOAD_LIMIT (default 10 MB) — file upload routes
+   *   - AUTH_PAYLOAD_LIMIT (default 100 KB) — auth routes
    * Client should: Reduce payload size; split into multiple requests if needed.
+   * See BACKEND_API_DOCS.md and docs/API_DOCUMENTATION.md for details.
    */
   PAYLOAD_TOO_LARGE: 'PAYLOAD_TOO_LARGE',
 
@@ -210,14 +215,6 @@ export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
  * Used by the XDR error parser and any code that pattern-matches on '#N'
  * substrings in simulation/result error strings.
  *
- * | Code | Contract variant  | Backend code         |
- * |------|-------------------|----------------------|
- * |  1   | AlreadyInitialized| CONFLICT             |
- * |  2   | NotInitialized    | INTERNAL_SERVER_ERROR|
- * |  3   | PlayerNotFound    | PLAYER_NOT_FOUND     |
- */
-export const CONTRACT_ERROR_CODE_MAP: Record<number, ErrorCode> = {
-  1: ErrorCode.CONFLICT,
-  2: ErrorCode.INTERNAL_SERVER_ERROR,
-  3: ErrorCode.PLAYER_NOT_FOUND,
-};
+ 
+
+/* … truncated 445 chars — edit only what you need near the top … */
